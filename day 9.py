@@ -1,14 +1,11 @@
 import copy
 
-
 def get_data():
     return [
-        {"item": "Laptop", "details": {"price": 50000, "stock": 10, "supplier": {"rating":
-                                                                                     4.5}}},
-        {"item": "Phone", "details": {"price": 20000, "stock": 25, "supplier": {"rating":
-                                                                                    4.2}}}
+        {"item": "Laptop", "details": {"price": 50000, "stock": 10, "supplier": {"rating": 4.5}}},
+        {"item": "Phone", "details": {"price": 20000, "stock": 25, "supplier": {"rating": 4.2}}},
+        {"item": "Tablet", "details": {"price": 35000, "stock": 15, "supplier": {"rating": 4.0}}}
     ]
-
 
 def update_items(arr, r):
     pos = r % len(arr)
@@ -18,32 +15,30 @@ def update_items(arr, r):
             arr[i]["details"]["stock"] += 5
     return arr
 
-
 def check_diff(a, b):
-    ch, un = [], []
+    changed, unchanged = [], []
     for i in range(len(a)):
         if a[i] == b[i]:
-            un.append(a[i]["item"])
+            unchanged.append(a[i]["item"])
         else:
-            ch.append(a[i]["item"])
-    return ch, un
+            changed.append(a[i]["item"])
+    return changed, unchanged
 
-
-roll = 24110011606
+roll = 24110011621
 
 main_data = get_data()
-copy1 = main_data.copy()
-copy2 = copy.deepcopy(main_data)
+shallow_copy = main_data.copy()
+deep_copy = copy.deepcopy(main_data)
 
-update_items(copy1, roll)
-update_items(copy2, roll)
+update_items(shallow_copy, roll)
+update_items(deep_copy, roll)
 
 print(main_data)
-print(copy1)
-print(copy2)
+print(shallow_copy)
+print(deep_copy)
 
-c1, u1 = check_diff(main_data, copy1)
-c2, u2 = check_diff(main_data, copy2)
+c1, u1 = check_diff(main_data, shallow_copy)
+c2, u2 = check_diff(main_data, deep_copy)
 
 print(c1, u1)
 print(c2, u2)
